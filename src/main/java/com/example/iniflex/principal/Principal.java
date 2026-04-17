@@ -4,6 +4,7 @@ import com.example.iniflex.model.Funcionario;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,15 @@ public class Principal {
         // 3.2 - Remove "João" da lista de funcionarios
         funcionarios.removeIf(funcionario -> funcionario.getName().equals("João") && funcionario.getFuncao().equals("Operador"));
         IO.println("Funcionarios após remoção " + funcionarios.size());
+
+        // 3.3 - Imprime no console os funcionarios e suas informações formatadas
+        for (Funcionario funcionario : funcionarios) {
+            IO.println("Nome = " + funcionario.getName());
+            IO.println("Data de Nascimento = " + funcionario.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            IO.println("Salario = R$" + funcionario.getSalario().toString().replace(".",","));
+            IO.println("Função = " + funcionario.getFuncao());
+            IO.println("--------------------------------");
+        }
 
     }
 
