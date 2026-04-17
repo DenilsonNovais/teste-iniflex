@@ -21,7 +21,11 @@ public class Principal {
         funcionarios.add(new Funcionario("Laura", LocalDate.of(1994, 7, 8), new BigDecimal("3017.45"), "Gerente"));
         funcionarios.add(new Funcionario("Heloísa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
         funcionarios.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
-        System.out.println("Funcionarios inseridos com sucesso! " + funcionarios.size());
+        IO.println("Funcionarios inseridos com sucesso! " + funcionarios.size());
+
+        // 3.2 - Remove "João" da lista de funcionarios
+        funcionarios.removeIf(funcionario -> funcionario.getName().equals("João") && funcionario.getFuncao().equals("Operador"));
+        IO.println("Funcionarios após remoção " + funcionarios.size());
 
     }
 
