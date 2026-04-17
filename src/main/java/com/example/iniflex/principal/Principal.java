@@ -3,6 +3,8 @@ package com.example.iniflex.principal;
 import com.example.iniflex.model.Funcionario;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.NumberFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -10,6 +12,9 @@ import java.util.List;
 
 public class Principal {
     public static void main(String[] args) {
+        NumberFormat formatoMoeda = NumberFormat.getCurrencyInstance();
+        DateTimeFormatter formatoData = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
         // 3.1 - Inserir todos os funcionarios na mesma ordem da tabela
         List<Funcionario> funcionarios = new ArrayList<>();
         funcionarios.add(new Funcionario("Maria", LocalDate.of(2000, 10, 18), new BigDecimal("2009.44"), "Operador"));
@@ -31,10 +36,17 @@ public class Principal {
         // 3.3 - Imprime no console os funcionarios e suas informações formatadas
         for (Funcionario funcionario : funcionarios) {
             IO.println("Nome = " + funcionario.getName());
-            IO.println("Data de Nascimento = " + funcionario.getDataNascimento().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-            IO.println("Salario = R$" + funcionario.getSalario().toString().replace(".",","));
+            IO.println("Data de Nascimento = " + formatoData.format(funcionario.getDataNascimento()));
+            IO.println("Salario " + formatoMoeda.format(funcionario.getSalario()));
             IO.println("Função = " + funcionario.getFuncao());
             IO.println("--------------------------------");
+        }
+
+        // 3.4 - Atualiza valor de salario em +10%
+        for (Funcionario funcionario : funcionarios) {
+            BigDecimal salarioReajustado = funcionario.getSalario().multiply(new BigDecimal("1.10")).setScale(2, RoundingMode.HALF_EVEN);
+            funcionario.setSalario(salarioReajustado);
+            IO.println("Salario " + formatoMoeda.format(funcionario.getSalario()));
         }
 
     }
