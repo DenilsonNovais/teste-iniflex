@@ -59,6 +59,27 @@ public class Principal {
             IO.println("Função: " + funcao);
             listaFuncionarios.forEach(funcionario -> IO.println(" - " + funcionario.getName()));
         });
+
+        // 3.8 - Imprime aniversariantes do mês 10 e 12
+        for (Funcionario funcionario : funcionarios) {
+            int mesNascimento = funcionario.getDataNascimento().getMonthValue();
+            if (mesNascimento == 10 || mesNascimento == 12) {
+                IO.println("Nome = " + funcionario.getName() + " - Data de Nascimento = " + mesNascimento);
+            }
+        }
+
+        // 3.9 - Imprime o funcionário mais velho
+        Funcionario funcionarioMaisVelho = funcionarios.get(0);
+        for (int i = 1; i < funcionarios.size(); i++) {
+            Funcionario funcionarioAtual = funcionarios.get(i);
+
+            if (funcionarioAtual.getDataNascimento().isBefore(funcionarioMaisVelho.getDataNascimento())) {
+                funcionarioMaisVelho = funcionarioAtual;
+            }
+        }
+        int idadeFuncionarioMaisVelho = LocalDate.now().getYear() - funcionarioMaisVelho.getDataNascimento().getYear();
+        IO.println("Funcionário mais velho: " + funcionarioMaisVelho.getName() + " - Idade: " + idadeFuncionarioMaisVelho);
+
     }
 
 }
