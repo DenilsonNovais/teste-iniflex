@@ -9,6 +9,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Principal {
     public static void main(String[] args) {
@@ -49,6 +51,14 @@ public class Principal {
             IO.println("Salario " + formatoMoeda.format(funcionario.getSalario()));
         }
 
+        // 3.5 - Agrupar os funcionários por função em um MAP, sendo a chave a “função” e o valor a “lista de funcionários”
+        Map<String, List<Funcionario>> funcionariosPorFuncao = funcionarios.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
+
+        // 3.6 - Imprime os funcionários agrupados por função
+        funcionariosPorFuncao.forEach((funcao, listaFuncionarios) -> {
+            IO.println("Função: " + funcao);
+            listaFuncionarios.forEach(funcionario -> IO.println(" - " + funcionario.getName()));
+        });
     }
 
 }
