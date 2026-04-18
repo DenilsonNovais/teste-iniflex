@@ -80,6 +80,30 @@ public class Principal {
         int idadeFuncionarioMaisVelho = LocalDate.now().getYear() - funcionarioMaisVelho.getDataNascimento().getYear();
         IO.println("Funcionário mais velho: " + funcionarioMaisVelho.getName() + " - Idade: " + idadeFuncionarioMaisVelho);
 
+        // 3.10 – Imprimir a lista de funcionários por ordem alfabética.
+        funcionarios.sort((funcionario1, funcionario2) ->
+                funcionario1.getName().compareTo(funcionario2.getName()));
+        for (Funcionario funcionario : funcionarios) {
+            IO.println("Nome = " + funcionario.getName());
+        }
+
+        //3.11 – Imprimir o total dos salários dos funcionários.
+        BigDecimal salarioTotal = BigDecimal.ZERO;
+        for (Funcionario funcionario : funcionarios) {
+            salarioTotal = salarioTotal.add(funcionario.getSalario());
+        }
+        IO.println("Total dos salários: " + formatoMoeda.format(salarioTotal));
+
+        // 3.12 – Imprimir quantos salários minimo cada funcionário ganha.
+        BigDecimal salarioMinimo = new BigDecimal("1212.00");
+
+        for (Funcionario funcionario : funcionarios) {
+            BigDecimal quantidade = funcionario.getSalario().divide(salarioMinimo, 2, RoundingMode.HALF_EVEN);
+
+            IO.println("Nome: " + funcionario.getName() +
+                    " | Salários mínimos: " + quantidade);
+        }
+
     }
 
 }
